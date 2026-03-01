@@ -1,0 +1,289 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --navy-950: #050810;
+  --navy-900: #0B0F1A;
+  --navy-800: #111827;
+  --blue-accent: #2962FF;
+  --blue-glow: #4D7AFF;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--navy-900);
+  color: #e2e8f0;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Neural grid background */
+.neural-grid-bg {
+  background-image: radial-gradient(circle, rgba(41, 98, 255, 0.12) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Glow effects */
+.glow-blue {
+  box-shadow: 0 0 20px rgba(41, 98, 255, 0.4), 0 0 60px rgba(41, 98, 255, 0.1);
+}
+
+.glow-blue-sm {
+  box-shadow: 0 0 10px rgba(41, 98, 255, 0.3);
+}
+
+.text-glow {
+  text-shadow: 0 0 30px rgba(41, 98, 255, 0.5);
+}
+
+/* Glass card */
+.glass-card {
+  background: rgba(17, 24, 39, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(41, 98, 255, 0.15);
+}
+
+.glass-nav {
+  background: rgba(11, 15, 26, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(41, 98, 255, 0.1);
+}
+
+/* Animated gradient border */
+.gradient-border {
+  position: relative;
+  background: linear-gradient(var(--navy-800), var(--navy-800)) padding-box,
+    linear-gradient(135deg, rgba(41, 98, 255, 0.5), rgba(77, 122, 255, 0.2), rgba(41, 98, 255, 0.5)) border-box;
+  border: 1px solid transparent;
+}
+
+/* Pulse animation for intelligence nodes */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(41, 98, 255, 0.3), 0 0 20px rgba(41, 98, 255, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(41, 98, 255, 0.7), 0 0 50px rgba(41, 98, 255, 0.3), 0 0 80px rgba(41, 98, 255, 0.1);
+  }
+}
+
+@keyframes orbitSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes orbitSpinReverse {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  0% { opacity: 0; transform: translateX(-30px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes counterPulse {
+  0%, 100% { color: #e2e8f0; }
+  50% { color: #4D7AFF; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes lineExpand {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
+
+.animate-orbit-spin {
+  animation: orbitSpin 10s linear infinite;
+}
+
+.animate-orbit-reverse {
+  animation: orbitSpinReverse 15s linear infinite;
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.8s ease forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.7s ease forwards;
+}
+
+.animate-float {
+  animation: floatY 4s ease-in-out infinite;
+}
+
+/* Delay utilities */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+.delay-700 { animation-delay: 0.7s; }
+.delay-800 { animation-delay: 0.8s; }
+
+/* Scroll-triggered animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Intelligence score shimmer on number */
+.score-shimmer {
+  background: linear-gradient(90deg, #e2e8f0 0%, #4D7AFF 50%, #e2e8f0 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 2s linear infinite;
+}
+
+/* Product carousel */
+.carousel-track {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Metric number pulse */
+.metric-number {
+  animation: counterPulse 3s ease-in-out infinite;
+}
+
+/* Line connecting orbit steps */
+.step-connector {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(41, 98, 255, 0.5), transparent);
+}
+
+/* Button styles */
+.btn-primary {
+  background: linear-gradient(135deg, #2962FF, #4D7AFF);
+  color: white;
+  font-weight: 600;
+  padding: 14px 32px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(41, 98, 255, 0.3);
+  letter-spacing: 0.01em;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #1d4ed8, #2962FF);
+  box-shadow: 0 8px 30px rgba(41, 98, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: #94a3b8;
+  font-weight: 500;
+  padding: 14px 32px;
+  border-radius: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.01em;
+}
+
+.btn-ghost:hover {
+  border-color: rgba(41, 98, 255, 0.4);
+  color: #e2e8f0;
+  box-shadow: 0 0 20px rgba(41, 98, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Form input */
+.input-field {
+  background: rgba(17, 24, 39, 0.8);
+  border: 1px solid rgba(41, 98, 255, 0.2);
+  color: #e2e8f0;
+  padding: 12px 16px;
+  border-radius: 8px;
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.input-field::placeholder {
+  color: #4b5563;
+}
+
+.input-field:focus {
+  border-color: rgba(41, 98, 255, 0.6);
+  box-shadow: 0 0 0 3px rgba(41, 98, 255, 0.1);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--navy-900);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(41, 98, 255, 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(41, 98, 255, 0.5);
+}

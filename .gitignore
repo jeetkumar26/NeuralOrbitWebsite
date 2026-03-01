@@ -1,0 +1,47 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Next.js build output
+.next/
+out/
+build/
+
+# Env files (never commit secrets)
+.env
+.env*.local
+.env.production
+
+# Local debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+*.lnk
+
+# Editor directories
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# TypeScript build info
+*.tsbuildinfo
+next-env.d.ts
+
+# Vercel
+.vercel
+
+# Supabase local dev
+.supabase/
+
+# Testing
+coverage/
+
+# Misc
+*.pem
