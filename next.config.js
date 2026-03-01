@@ -7,9 +7,10 @@ const nextConfig = {
   basePath: "/NeuralOrbitWebsite",
   assetPrefix: "/NeuralOrbitWebsite/",
 
-  // Disable image optimisation (not available in static export)
+  // Custom image loader that prepends basePath
   images: {
-    unoptimized: true,
+    loader: "custom",
+    loaderFile: "./lib/imageLoader.ts",
   },
 
   // Performance

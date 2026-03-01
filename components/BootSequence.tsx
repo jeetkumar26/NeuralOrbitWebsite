@@ -134,13 +134,14 @@ export default function BootSequence({ onComplete }: Props) {
             <canvas ref={canvasRef} className="absolute inset-0" />
 
             <div className="relative z-10 max-w-lg w-full px-8">
-                {/* Logo mark */}
+                {/* Logo — actual Neural Orbit SVG */}
                 <div className="flex items-center gap-3 mb-10">
-                    <div className="w-7 h-7 rounded-full flex items-center justify-center"
-                        style={{ background: "linear-gradient(135deg,#2962FF,#1a3a8f)" }}>
-                        <div className="w-2.5 h-2.5 rounded-full bg-white/90" />
-                    </div>
-                    <span className="font-mono text-blue-400/60 text-xs tracking-[0.3em] uppercase">Neural Orbit</span>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                        src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/neuralorbit.svg`}
+                        alt="Neural Orbit"
+                        style={{ height: 44, width: "auto", filter: "brightness(0) invert(1)" }}
+                    />
                 </div>
 
                 {/* Terminal lines */}
