@@ -109,7 +109,8 @@ export default function ThreeScene() {
 
             // ── Connection lines (desktop only) ──────────────────────────────────
             const MAX_SEGS = 800;
-            let lGeo: THREE.BufferGeometry | null = null;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            let lGeo: any = null;
             let linePos: Float32Array | null = null;
             if (DO_LINES) {
                 linePos = new Float32Array(MAX_SEGS * 6);
@@ -188,7 +189,7 @@ export default function ThreeScene() {
                 camera.lookAt(0, 0, currentCamZ - 80);
 
                 // ── Particle drift + mouse gravity ────────────────────────────────
-                const pAttr = pGeo.attributes.position as THREE.BufferAttribute;
+                const pAttr = pGeo.attributes.position as { array: Float32Array; needsUpdate: boolean };
                 const NEAR_Z = currentCamZ + 60;
                 const FAR_Z = currentCamZ - 450;
 
