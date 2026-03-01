@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
+import { supabase } from "@/lib/supabase";
 import Navbar from "@/components/Navbar";
-import Link from "next/link";
 
 const CONTACT_OPTIONS = [
     { icon: "📧", label: "Email Us", value: "hello@neuralorbit.ai", href: "mailto:hello@neuralorbit.ai" },
@@ -14,40 +14,30 @@ export default function ContactPage() {
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
     const [errorMsg, setErrorMsg] = useState("");
 
-    const set = (field: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
-        setForm(f => ({ ...f, [field]: e.target.value }));
+    const set = (f: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
+        setForm(prev => ({ ...prev, [f]: e.target.value }));
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!form.email || !form.message) return;
         setStatus("loading");
-        try {
-            const res = await fetch("/api/contact", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(form),
-            });
-            const data = await res.json();
-            if (res.ok && data.success) {
-                setStatus("success");
-            } else {
-                setErrorMsg(data.error || "Something went wrong.");
-                setStatus("error");
-            }
-        } catch {
-            setErrorMsg("Network error. Please try again.");
-            setStatus("error");
-        }
+        const { error } = await supabase.from("website_contact").insert({
+            name: form.name.trim() || null,
+            email: form.email.trim().toLowerCase(),
+            subject: form.subject || "General Inquiry",
+            message: form.message.trim(),
+            status: "unread",
+        });
+        if (!error) setStatus("success");
+        else { setErrorMsg("Something went wrong. Please try again."); setStatus("error"); }
     };
 
     return (
         <main className="min-h-screen bg-[#000009] overflow-x-hidden">
             <Navbar />
-
             <section className="relative pt-32 pb-20 px-6 overflow-hidden">
                 <div className="absolute inset-0 pointer-events-none"
                     style={{ background: "radial-gradient(ellipse 60% 50% at 50% 0%, rgba(41,98,255,0.10) 0%, transparent 70%)" }} />
-
                 <div className="max-w-5xl mx-auto">
                     <div className="text-center mb-16">
                         <p className="text-blue-400 text-sm font-medium tracking-widest uppercase mb-4">Get In Touch</p>
@@ -56,9 +46,7 @@ export default function ContactPage() {
                             Whether you have a question, partnership idea, or just want to learn more — we&apos;re here.
                         </p>
                     </div>
-
                     <div className="grid lg:grid-cols-5 gap-8">
-                        {/* Left */}
                         <div className="lg:col-span-2 space-y-4">
                             {CONTACT_OPTIONS.map(c => (
                                 <a key={c.label} href={c.href}
@@ -73,15 +61,12 @@ export default function ContactPage() {
                             <div className="glass-card rounded-2xl p-6 border border-white/5">
                                 <div className="text-2xl mb-3">⏱️</div>
                                 <div className="text-white font-medium mb-1">Response Time</div>
-                                <div className="text-slate-500 text-sm">We typically respond within 2 hours during business days (GMT+5:30).</div>
+                                <div className="text-slate-500 text-sm">Within 2 hours during business days (GMT+5:30).</div>
                             </div>
                         </div>
-
-                        {/* Right: form */}
                         <div className="lg:col-span-3">
                             <div className="glass-card rounded-3xl p-8 border border-blue-500/10"
-                                style={{ background: "linear-gradient(135deg, rgba(5,8,20,0.95), rgba(20,30,60,0.4))" }}>
-
+                                style={{ background: "linear-gradient(135deg,rgba(5,8,20,0.95),rgba(20,30,60,0.4))" }}>
                                 {status === "success" ? (
                                     <div className="text-center py-10">
                                         <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5"
@@ -125,11 +110,7 @@ export default function ContactPage() {
                                                 <textarea rows={5} placeholder="Tell us what's on your mind..." value={form.message} onChange={set("message")} required
                                                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:outline-none focus:border-blue-500/50 transition-all resize-none" />
                                             </div>
-
-                                            {status === "error" && (
-                                                <p className="text-red-400 text-sm">{errorMsg}</p>
-                                            )}
-
+                                            {status === "error" && <p className="text-red-400 text-sm">{errorMsg}</p>}
                                             <button type="submit" disabled={status === "loading"}
                                                 className="btn-primary w-full py-4 font-bold" id="contact-submit-btn">
                                                 {status === "loading" ? (

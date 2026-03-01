@@ -41,10 +41,10 @@ export default function Navbar() {
                         <Image
                             src="/neuralorbit.svg"
                             alt="Neural Orbit"
-                            width={160}
-                            height={48}
+                            width={220}
+                            height={64}
                             priority
-                            className="h-10 sm:h-12 w-auto"
+                            className="h-12 sm:h-14 md:h-16 w-auto"
                             style={{ filter: "brightness(0) invert(1)" }}
                         />
                     </Link>
